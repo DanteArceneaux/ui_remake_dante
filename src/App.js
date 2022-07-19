@@ -10,6 +10,8 @@ import HomePage from './pages/HomePage';
 import UserPage from './pages/UserPage';
 import BoxSx from './components/Box';
 import CreateUserComponent from './components/CreateUserComponent';
+import UpdateUserComponent from './components/UpdateUserComponent';
+
 
 function App() {
   return (
@@ -31,6 +33,7 @@ function App() {
         <Route exact path="/"  component={HomePage} />
         <Route path="/users" component={UserPage}/>
         <Route path="/users/add" component={CreateUserComponent}/>
+        <Route path="/users/update/:id" component={UpdateUserComponent}/>
 
       </Switch>
         

@@ -29,7 +29,7 @@ body {
 
 .homeHeader  { 
   margin-top: 2em;
-text-align: center;
+  text-align: center;
 }
 
 .footer{
@@ -50,3 +50,8 @@ width: 100%;
  margin-left: 500px;
 }
 
+.pic-container {
+  display: flex;
+  justify-content: center;
+  height: 300px;
+}

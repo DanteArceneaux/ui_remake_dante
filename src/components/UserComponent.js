@@ -13,6 +13,11 @@ class UserComponent extends React.Component {
         users: []
         };
         this.createUser = this.createUser.bind(this);
+        this.updateUser = this.updateUser.bind(this);
+    }
+
+    updateUser(userId){
+        this.props.history.push(`/users/update/${userId}`); 
     }
     
     componentDidMount() {
@@ -45,24 +50,32 @@ class UserComponent extends React.Component {
                 <thead>
                     <tr className="text-light">
                     <th> ID </th>
-                    <th > Username </th>
-                    <th> Password </th>
                     <th> First Name </th>
                     <th> Last Name </th>
+                    <th > Username </th>
+                    <th> Password </th>
+                    
                     <th> Email </th>
                     <th> Role </th>
+                    
                     </tr>
                 </thead>
                 <tbody className="text-primary">
                     {this.state.users.map(user => (
                     <tr key={user.id} >
                       
-                        <td className="text-light">{user.email}</td>
+                        <td className="text-light">{user.userId}</td>
                         <td className="text-light">{user.firstName}</td>
                         <td className="text-light">{user.lastName}</td>
-                        <td className="text-light">{user.password}</td>
-                        <td className="text-light">{user.role}</td>
                         <td className="text-light">{user.username}</td>
+                        <td className="text-light">{user.password}</td>
+                        
+                       
+                        <td className="text-light">{user.email}</td>
+                        <td className="text-light">{user.role}</td>
+                        <td>
+                            <button onClick = {() => this.updateUser(user.userId)} className="btn btn-info" >Update</button>
+                        </td>
                     </tr>
                     ))}
                 </tbody>

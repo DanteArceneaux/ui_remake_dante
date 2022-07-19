@@ -3,10 +3,11 @@ import React from 'react'
 import UserComponent from './UserComponent'
 import { Route, withRouter } from "react-router-dom";
 
-class CreateUserComponent extends React.Component {
+class UpdateUserComponent extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
+            userId: this.props.match.params.userId,
            firstName: "",
               lastName: "",
                 email: "",
@@ -15,10 +16,26 @@ class CreateUserComponent extends React.Component {
                 username: ""
         }
 
-        this.createUser = this.createUser.bind(this);
+        this.updateUser = this.updateUser.bind(this);
+         
     }
 
-        createUser = (e) => {
+    componentDidMount() {
+        UserService.getUserById(this.state.userId).then(response => {
+            this.setState({
+                userId: response.data.userId,
+                firstName: response.data.firstName,
+                lastName: response.data.lastName,
+                email: response.data.email,
+                password: response.data.password,
+                role: response.data.role,
+                username: response.data.username
+            });
+        });
+    }
+
+
+        updateUser = (e) => {
             e.preventDefault();
             const user = {
                 firstName: this.state.firstName,
@@ -30,7 +47,7 @@ class CreateUserComponent extends React.Component {
    
             }
 
-            UserService.createUser(user).then(response => {
+            UserService.updateUser(user).then(response => {
                 this.setState({
                     firstName: "",
                     lastName: "",
@@ -69,9 +86,10 @@ class CreateUserComponent extends React.Component {
         this.setState({ username: event.target.value })
     }
 
-    createUser() {
+    updateUser() {
         this.props.history.push(`/users/add`);
     }
+    
 
    
 
@@ -84,7 +102,7 @@ class CreateUserComponent extends React.Component {
                 <div className="container"></div>
                 <div className="row">
                     <div className="card col-md-6 offset-md-3 offset-md-3">
-                        <div className="text-center"> Create User 
+                        <div className="text-center"> update User 
                         <div className="card-body">
                             <form>
                                 <div className="form-group">
@@ -115,7 +133,7 @@ class CreateUserComponent extends React.Component {
 
                                
 
-                                    <button className="btn btn-primary" onClick={this.createUser}>Create User</button>
+                                    <button className="btn btn-primary" onClick={this.updateUser}>Update User</button>
                                     
                                     
 
@@ -131,4 +149,4 @@ class CreateUserComponent extends React.Component {
     }
 }
 
-export default withRouter(CreateUserComponent);
+export default withRouter(UpdateUserComponent);
